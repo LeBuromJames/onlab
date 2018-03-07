@@ -26,6 +26,7 @@ public class Users implements Serializable {
 	private List<WishList> wishlists = new ArrayList<WishList>();
 	   
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int userid;
 	private String name;
 	private static final long serialVersionUID = 1L;

@@ -13,19 +13,13 @@ import javax.persistence.*;
 @Entity
 
 public class WishList implements Serializable {
-	@JoinTable(name = "wishlist_user",
-            joinColumns = @JoinColumn(name = "wishlistid", referencedColumnName = "wishlistid"),
-            inverseJoinColumns = @JoinColumn(name = "userid", referencedColumnName = "userid"))
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
-    private List<Users> users = new ArrayList<Users>();
 	
-	@JoinTable(name = "wishlist_ingredient",
-            joinColumns = @JoinColumn(name = "wishlistid", referencedColumnName = "wishlistid"),
-            inverseJoinColumns = @JoinColumn(name = "ingredientid", referencedColumnName = "ingredientid"))
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
-	private List<Ingredient> ingredients = new ArrayList<Ingredient>();
+	
+	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "ingredient", fetch = FetchType.LAZY)
+	private List<WishedIngredient> ingredients = new ArrayList<WishedIngredient>();
 	   
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int wishlistid;
 	private static final long serialVersionUID = 1L;
 
@@ -40,18 +34,11 @@ public class WishList implements Serializable {
 		this.wishlistid = wishlistid;
 	}   
 	
-	public List<Users> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<Users> users) {
-        this.users = users;
-        }
-    public List<Ingredient> getIngredients() {
+    public List<WishedIngredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(List<WishedIngredient> ingredients) {
         this.ingredients = ingredients;
         }
    

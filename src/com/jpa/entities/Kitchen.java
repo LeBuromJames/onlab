@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.lang.String;
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,11 +20,6 @@ public class Kitchen implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     private List<Food> foods = new ArrayList<Food>();
     
-    @JoinTable(name = "ingredient_kitchen",
-            joinColumns = @JoinColumn(name = "kitchenid", referencedColumnName = "kitchenid"),
-            inverseJoinColumns = @JoinColumn(name = "ingredientid", referencedColumnName = "ingredientid"))
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
-    private List<Ingredient> ingredients = new ArrayList<Ingredient>();
     
     @JoinTable(name = "users_kitchen",
             joinColumns = @JoinColumn(name = "kitchenid", referencedColumnName = "kitchenid"),
@@ -33,8 +27,12 @@ public class Kitchen implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     private List<Users> users = new ArrayList<Users>();
     
+    @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "ingredient", fetch = FetchType.LAZY)
+    private List<IngredientInKitchen> ingredients = new ArrayList<IngredientInKitchen>();
+    
 	   
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int kitchenid;
 	private String name;
 	private static final long serialVersionUID = 1L;
@@ -64,11 +62,11 @@ public class Kitchen implements Serializable {
     public void setFoods(List<Food> foods) {
         this.foods = foods;
         }
-    public List<Ingredient> getIngredients() {
+    public List<IngredientInKitchen> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(List<IngredientInKitchen> ingredients) {
         this.ingredients = ingredients;
         }
     public List<Users> getUsers() {

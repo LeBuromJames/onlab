@@ -13,31 +13,23 @@ import javax.persistence.*;
 @Entity
 
 public class Ingredient implements Serializable {
-	
-	@JoinTable(name = "ingredient_kitchen",
-            joinColumns = @JoinColumn(name = "ingredientid", referencedColumnName = "ingredientid"),
-            inverseJoinColumns = @JoinColumn(name = "kitchenid", referencedColumnName = "kitchenid"))
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
-    private List<Kitchen> kitchens = new ArrayList<Kitchen>();
     
-    @JoinTable(name = "food_ingredient",
-            joinColumns = @JoinColumn(name = "ingredientid", referencedColumnName = "ingredientid"),
-            inverseJoinColumns = @JoinColumn(name = "foodid", referencedColumnName = "foodid"))
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
-    private List<Food> foods = new ArrayList<Food>();
     
-    @JoinTable(name = "wishlist_ingredient",
-            joinColumns = @JoinColumn(name = "ingredientid", referencedColumnName = "ingredientid"),
-            inverseJoinColumns = @JoinColumn(name = "wishlistid", referencedColumnName = "wishlistid"))
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
-    private List<WishList> wishlists = new ArrayList<WishList>();
+	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "wishlist", fetch = FetchType.LAZY)
+    private List<WishedIngredient> wishlists = new ArrayList<WishedIngredient>();
+    
+    @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "kitchen", fetch = FetchType.LAZY)
+    private List<IngredientInKitchen> kitchens = new ArrayList<IngredientInKitchen>();
+    
+    @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "food", fetch = FetchType.LAZY)
+    private List<NeededIngredient> foods = new ArrayList<NeededIngredient>();
     
 	   
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int ingredientid;
 	private String name;
 	private double calory;
-	private double weight_in_gramm_or_count;
 	private static final long serialVersionUID = 1L;
 
 	public Ingredient() {
@@ -64,33 +56,26 @@ public class Ingredient implements Serializable {
 	public void setCalory(double calory) {
 		this.calory = calory;
 	}   
-	public double getWeight_in_gramm_or_count() {
-		return this.weight_in_gramm_or_count;
-	}
-
-	public void setWeight_in_gramm_or_count(double weight_in_gramm_or_count) {
-		this.weight_in_gramm_or_count = weight_in_gramm_or_count;
-	}
 	
-	public List<Kitchen> getKitchens() {
+	public List<IngredientInKitchen> getKitchens() {
         return kitchens;
     }
 
-    public void setKitchens(List<Kitchen> kitchens) {
+    public void setKitchens(List<IngredientInKitchen> kitchens) {
         this.kitchens = kitchens;
         }
-    public List<Food> getFoods() {
+    public List<NeededIngredient> getFoods() {
         return foods;
     }
 
-    public void setFoods(List<Food> foods) {
+    public void setFoods(List<NeededIngredient> foods) {
         this.foods = foods;
         }
-    public List<WishList> getWishList() {
+    public List<WishedIngredient> getWishList() {
         return wishlists;
     }
 
-    public void setWishLists(List<WishList> wishlists) {
+    public void setWishLists(List<WishedIngredient> wishlists) {
         this.wishlists = wishlists;
         }
    

@@ -19,16 +19,16 @@ public class Food implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     private List<Kitchen> kitchens = new ArrayList<Kitchen>();
     
-    @JoinTable(name = "food_ingredient",
-            joinColumns = @JoinColumn(name = "foodid", referencedColumnName = "foodid"),
-            inverseJoinColumns = @JoinColumn(name = "ingredientid", referencedColumnName = "ingredientid"))
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
-    private List<Ingredient> ingredients = new ArrayList<Ingredient>();
+    
+    @OneToMany(mappedBy = "ingredient")
+    private List<NeededIngredient> ingredients = new ArrayList<NeededIngredient>();
 
 
 	   
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int foodid;
+	
 	private String name;
 	private static final long serialVersionUID = 1L;
 
@@ -57,11 +57,11 @@ public class Food implements Serializable {
     public void setKitchens(List<Kitchen> kitchens) {
         this.kitchens = kitchens;
         }
-    public List<Ingredient> getIngredients() {
+    public List<NeededIngredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(List<NeededIngredient> ingredients) {
         this.ingredients = ingredients;
         }
    
