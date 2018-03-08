@@ -17,6 +17,10 @@ public class WishList implements Serializable {
 	
 	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "ingredient", fetch = FetchType.LAZY)
 	private List<WishedIngredient> ingredients = new ArrayList<WishedIngredient>();
+	
+	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "kitchen")
+    private Kitchen kitchen;
 	   
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,5 +45,13 @@ public class WishList implements Serializable {
     public void setIngredients(List<WishedIngredient> ingredients) {
         this.ingredients = ingredients;
         }
+    
+    public Kitchen getKitchen() {
+        return kitchen;
+    }
+
+    public void setKitchen(Kitchen kitchen) {
+        this.kitchen = kitchen;
+    }
    
 }

@@ -23,7 +23,9 @@ public class Food implements Serializable {
     @OneToMany(mappedBy = "ingredient")
     private List<NeededIngredient> ingredients = new ArrayList<NeededIngredient>();
 
-
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "kitchen")
+    private Kitchen kitchen;
 	   
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -64,5 +66,13 @@ public class Food implements Serializable {
     public void setIngredients(List<NeededIngredient> ingredients) {
         this.ingredients = ingredients;
         }
+    
+    public Kitchen getKitchen() {
+        return kitchen;
+    }
+
+    public void setKitchen(Kitchen kitchen) {
+        this.kitchen = kitchen;
+    }
    
 }

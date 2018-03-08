@@ -13,14 +13,7 @@ import java.util.List;
 @Entity
 
 public class Kitchen implements Serializable {
-
-	@JoinTable(name = "food_kitchen",
-            joinColumns = @JoinColumn(name = "kitchenid", referencedColumnName = "kitchenid"),
-            inverseJoinColumns = @JoinColumn(name = "foodid", referencedColumnName = "foodid"))
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
-    private List<Food> foods = new ArrayList<Food>();
-    
-    
+ 
     @JoinTable(name = "users_kitchen",
             joinColumns = @JoinColumn(name = "kitchenid", referencedColumnName = "kitchenid"),
             inverseJoinColumns = @JoinColumn(name = "userid", referencedColumnName = "userid"))
@@ -29,6 +22,12 @@ public class Kitchen implements Serializable {
     
     @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "ingredient", fetch = FetchType.LAZY)
     private List<IngredientInKitchen> ingredients = new ArrayList<IngredientInKitchen>();
+    
+    @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "kitchen", fetch = FetchType.LAZY)
+    private List<WishList> wishlists = new ArrayList<WishList>();
+    
+    @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "kitchen", fetch = FetchType.LAZY)
+    private List<Food> foods = new ArrayList<Food>();
     
 	   
 	@Id
@@ -75,6 +74,13 @@ public class Kitchen implements Serializable {
 
     public void setUsers(List<Users> users) {
         this.users = users;
+        }
+    public List<WishList> getWishList() {
+        return wishlists;
+    }
+
+    public void setWishLists(List<WishList> wishlists) {
+        this.wishlists = wishlists;
         }
     }
 
