@@ -11,7 +11,7 @@ import javax.persistence.*;
  *
  */
 @Entity
-
+@Table(name = "Ingredient")
 public class Ingredient implements Serializable {
     
     
@@ -27,8 +27,13 @@ public class Ingredient implements Serializable {
 	   
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="IngredientId")
 	private int ingredientid;
+	
+	@Column(name="Name")
 	private String name;
+	
+	@Column(name="Calory")
 	private double calory;
 	private static final long serialVersionUID = 1L;
 

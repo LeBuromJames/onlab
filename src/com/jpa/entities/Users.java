@@ -11,7 +11,7 @@ import javax.persistence.*;
  *
  */
 @Entity
-
+@Table(name = "Users")
 public class Users implements Serializable {
 	@JoinTable(name = "users_kitchen",
             joinColumns = @JoinColumn(name = "userid", referencedColumnName = "userid"),
@@ -27,7 +27,10 @@ public class Users implements Serializable {
 	   
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="UserId")
 	private int userid;
+	
+	@Column(name="Name")
 	private String name;
 	private static final long serialVersionUID = 1L;
 

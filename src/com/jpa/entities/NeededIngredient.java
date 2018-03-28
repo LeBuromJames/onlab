@@ -8,7 +8,7 @@ import javax.persistence.*;
  *
  */
 @Entity
-
+@Table(name = "NeededIngredient")
 public class NeededIngredient implements Serializable {
 	
 	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
@@ -21,7 +21,10 @@ public class NeededIngredient implements Serializable {
 	   
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="NeededIngredientId")
 	private int id;
+	
+	@Column(name="WeightOrCount")
 	private double weight_or_count;
 	private static final long serialVersionUID = 1L;
 

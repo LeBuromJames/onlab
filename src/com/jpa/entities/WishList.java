@@ -11,7 +11,7 @@ import javax.persistence.*;
  *
  */
 @Entity
-
+@Table(name = "WishList")
 public class WishList implements Serializable {
 	
 	
@@ -24,6 +24,7 @@ public class WishList implements Serializable {
 	   
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="WishListId")
 	private int wishlistid;
 	private static final long serialVersionUID = 1L;
 

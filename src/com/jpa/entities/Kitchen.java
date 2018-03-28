@@ -11,7 +11,7 @@ import java.util.List;
  *
  */
 @Entity
-
+@Table(name = "Kitchen")
 public class Kitchen implements Serializable {
  
     @JoinTable(name = "users_kitchen",
@@ -32,7 +32,10 @@ public class Kitchen implements Serializable {
 	   
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="KitchenId")
 	private int kitchenid;
+	
+	@Column(name="Name")
 	private String name;
 	private static final long serialVersionUID = 1L;
 
