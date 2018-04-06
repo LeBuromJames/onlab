@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<body>
+<h:panelGroup id="header" layout="block">
+    <h1>Header</h1>
+</h:panelGroup>
+<h:panelGroup id="menu" layout="block">
+    <h:form>
+        <f:ajax render=":content">
+            <ul>
+                <li><h:commandLink value="Foods" action="#{bean.setPage('foods')}" /></li>
+                <li><h:commandLink value="Ingredients" action="#{bean.setPage('ingredients')}" /></li> 
+            </ul>
+        </f:ajax>
+    </h:form>
+</h:panelGroup>
+<h:panelGroup id="content" layout="block">
+    <ui:include src="/WEB-INF/pages/#{bean.page}.xhtml" />
+</h:panelGroup>
+
+</body>
+</html>
