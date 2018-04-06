@@ -30,7 +30,7 @@ public class Food implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="FoodId")
-	private int foodid;
+	private Integer foodid;
 	
 	@Column(name="Name")
 	private String name;
@@ -39,7 +39,7 @@ public class Food implements Serializable {
 	public Food() {
 		super();
 	}   
-	public int getFoodid() {
+	public Integer getFoodid() {
 		return this.foodid;
 	}
 

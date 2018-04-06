@@ -2,9 +2,12 @@ package com.gui.controllers;
 
 import java.util.List;
 
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
+//import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 
 import com.jpa.entities.Food;
@@ -12,8 +15,8 @@ import com.jpa.entities.Food;
 import DAO.FoodDao;
 
 
-@Named
-@RequestScoped
+@ManagedBean
+@ViewScoped
 public class FoodController {
 
 	@EJB
@@ -35,12 +38,18 @@ public class FoodController {
 		return null;
 	}
 	
+	public String delete(Integer id) {
+		foodDao.deleteById(id);
+		init();
+		return null;
+	}
+	
 	
 	public Food getFood() {
 		return food;
 	}
 
-	public void setTargy(Food food) {
+	public void setFood(Food food) {
 		this.food = food;
 	}
 
