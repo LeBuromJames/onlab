@@ -13,7 +13,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "Food")
-public class Food implements Serializable {
+public class Food{
      
     @OneToMany(mappedBy = "ingredient", fetch = FetchType.EAGER)
     private Set<NeededIngredient> ingredients;
@@ -29,7 +29,6 @@ public class Food implements Serializable {
 	
 	@Column(name="Name")
 	private String name;
-	private static final long serialVersionUID = 1L;
 
 	public Food() {
 		super();

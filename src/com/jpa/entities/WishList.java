@@ -3,6 +3,7 @@ package com.jpa.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -15,10 +16,10 @@ import javax.persistence.*;
 public class WishList implements Serializable {
 	
 	
-	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "ingredient", fetch = FetchType.LAZY)
-	private List<WishedIngredient> ingredients = new ArrayList<WishedIngredient>();
+	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "ingredient", fetch = FetchType.EAGER)
+	private Set<WishedIngredient> ingredients;
 	
-	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "kitchen")
     private Kitchen kitchen;
 	   
@@ -35,15 +36,15 @@ public class WishList implements Serializable {
 		return this.wishlistid;
 	}
 	
-	public void setWishListid(Integer wishlistid) {
+	public void setWishlistid(Integer wishlistid) {
 		this.wishlistid = wishlistid;
 	}   
 	
-    public List<WishedIngredient> getIngredients() {
+    public Set<WishedIngredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<WishedIngredient> ingredients) {
+    public void setIngredients(Set<WishedIngredient> ingredients) {
         this.ingredients = ingredients;
         }
     

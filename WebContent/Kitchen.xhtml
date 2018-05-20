@@ -7,17 +7,25 @@
 
 <h:head>
 <f:metadata>
-    <f:viewParam name="id" value="#{kitchenController.kitchen.kitchenid}" />
+    <f:viewParam name="kid" value="#{kitchenController.kitchen.kitchenid}" />
+    <f:viewParam name="uid" value="#{userController.id}" />
 </f:metadata></h:head> 
 <body>
 <h:panelGrid columns="2">
-        <h:outputLabel value="Requested id: "/>
+        <h:outputLabel value="Requested kid: "/>
         <h:outputText value="#{kitchenController.kitchen.kitchenid}"/>
+</h:panelGrid>
+<h:panelGrid columns="2">
+        <h:outputLabel value="Requested uid: "/>
+        <h:outputText value="#{userController.id}"/>
 </h:panelGrid>
 
 <h:form>
 <h:inputText t:placeholder='food name' value="#{foodController.food.name}"/>
 <h:commandButton value="OK" action="#{foodController.create(kitchenController.getKitchenByID(kitchenController.kitchen.kitchenid))}"/>
+</h:form>
+<h:form>
+<h:commandButton value="CreateWishList" action="#{wishListController.create(kitchenController.getKitchenByID(kitchenController.kitchen.kitchenid))}"/>
 </h:form>
 <h:form>
 <h:inputText t:placeholder="ingredient name" value="#{ingredientController.ingredient.name}"/>
@@ -37,7 +45,9 @@
     </h:column>
     <h:column>
 		<h:link value="Ingredients" outcome="ingredientsInFood" includeViewParams="true">
-        <f:param name="id" value="#{food.foodid}"/>
+        <f:param name="fid" value="#{food.foodid}"/>
+        <f:param name="kid" value="#{kitchenController.kitchen.kitchenid}"/>
+        <f:param name="uid" value="#{userController.id}"/>
         </h:link>
 	</h:column>
 	<h:column>
@@ -68,8 +78,22 @@
 </h:form>
 
 <h:form>
+<h:dataTable value="#{kitchenController.getKitchenByID(kitchenController.kitchen.kitchenid).wishlists}" var="wishList" styleClass="table table-bordered" border="2">
+	<h:column>
+		<f:facet name="header">WishList id</f:facet>		
+		<h:outputText value="#{wishList.wishlistid}  "/>
+	</h:column>
+	<h:column>
+         <h:commandButton type="submit" value="Delete WishList!" action="#{foodController.delete(food.foodid,kitchenController.getKitchenByID(kitchenController.kitchen.kitchenid))}"/>
+    </h:column>
+</h:dataTable>
+</h:form>
+
+<h:form>
    			<h3>BackToMainPage</h3>
-   			<h:commandButton action = "loggedin" value = "Main page" />
+   			<h:link value="Main Page" outcome="loggedin" includeViewParams="true">        	
+        	<f:param name="uid" value="#{userController.id}"/>
+        	</h:link>
 		</h:form>
 </body> 
 </html>

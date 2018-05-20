@@ -13,13 +13,14 @@ import javax.persistence.*;
 public class NeededIngredient implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "ingredient")
     private Ingredient ingredient;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "food")
     private Food food;
+	
 	   
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

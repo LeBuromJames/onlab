@@ -97,6 +97,13 @@ public class Kitchen{
 		ingredient.setKitchen(null);
 	}
     
+	public Set<WishList> getWishlists() {
+        return wishlists;
+    }
+
+    public void setWishlists(Set<WishList> wishLists) {
+        this.wishlists = wishLists;
+        }
 		
     
     public void addWishList(WishList wishlist) { 

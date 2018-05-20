@@ -7,6 +7,8 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+import com.jpa.entities.Food;
+import com.jpa.entities.Kitchen;
 import com.jpa.entities.WishList;
 
 import DAO.WishListDao;
@@ -29,8 +31,13 @@ public class WishListController {
 		WishLists = wishListDao.findAll();
 	}
 	
-	public String create() {
+	
+	
+	public String create(Kitchen kitchen) {
 		wishListDao.create(wishList);
+		WishList newWishList = wishListDao.findById(wishList.getWishlistid());
+		kitchen.addWishList(newWishList);
+		wishListDao.update(newWishList);
 		init();
 		return null;
 	}

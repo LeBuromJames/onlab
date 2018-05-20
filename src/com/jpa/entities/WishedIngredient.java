@@ -11,11 +11,11 @@ import javax.persistence.*;
 @Table(name = "WishedIngredient")
 public class WishedIngredient implements Serializable {
 	
-	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "ingredient")
     private Ingredient ingredient;
 	
-	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "wishlist")
     private WishList wishlist;
 

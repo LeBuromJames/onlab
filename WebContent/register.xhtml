@@ -20,9 +20,9 @@
             <f:facet name = "header">
                <h:outputText value = "Register"/>
             </f:facet>
-            <h:outputLabel value = "Nev" />
+            <h:outputLabel value = "Name" />
             <h:inputText value="#{userController.user.name}" />
-            <h:outputLabel value = "Neptun" />
+            <h:outputLabel value = "Email" />
             <h:inputText value="#{userController.user.email}" />
             <h:outputLabel value = "Password" />
             <h:inputSecret value="#{userController.user.jelszo}"/>
@@ -42,12 +42,12 @@
 <h:form>
 <h:dataTable value="#{userController.userList}" var="user">
 	<h:column>
-		<f:facet name="header">Nev</f:facet>
+		<f:facet name="header">Name</f:facet>
 		<h:outputText value="#{user.name}"/>
 
 	</h:column>
 	<h:column>
-		<f:facet name="header">Neptun</f:facet>
+		<f:facet name="header">Email</f:facet>
 		<h:outputText value="#{user.email}"/>
 
 	</h:column>
