@@ -3,6 +3,7 @@ package com.jpa.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.lang.String;
 import javax.persistence.*;
 
@@ -15,20 +16,20 @@ import javax.persistence.*;
 public class Ingredient implements Serializable {
     
     
-	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "wishlist", fetch = FetchType.LAZY)
-    private List<WishedIngredient> wishlists = new ArrayList<WishedIngredient>();
+	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "wishlist", fetch = FetchType.EAGER)
+    private Set<WishedIngredient> wishlists;
     
-    @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "kitchen", fetch = FetchType.LAZY)
-    private List<IngredientInKitchen> kitchens = new ArrayList<IngredientInKitchen>();
+    @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "kitchen", fetch = FetchType.EAGER)
+    private Set<IngredientInKitchen> kitchens;
     
-    @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "food", fetch = FetchType.LAZY)
-    private List<NeededIngredient> foods = new ArrayList<NeededIngredient>();
+    @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "food", fetch = FetchType.EAGER)
+    private Set<NeededIngredient> foods;
     
 	   
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="IngredientId")
-	private int ingredientid;
+	private Integer ingredientid;
 	
 	@Column(name="Name")
 	private String name;
@@ -40,11 +41,11 @@ public class Ingredient implements Serializable {
 	public Ingredient() {
 		super();
 	}   
-	public int getIngredientid() {
+	public Integer getIngredientid() {
 		return this.ingredientid;
 	}
 
-	public void setIngredientid(int ingredientid) {
+	public void setIngredientid(Integer ingredientid) {
 		this.ingredientid = ingredientid;
 	}   
 	public String getName() {
@@ -62,26 +63,55 @@ public class Ingredient implements Serializable {
 		this.calory = calory;
 	}   
 	
-	public List<IngredientInKitchen> getKitchens() {
+	public Set<IngredientInKitchen> getKitchens() {
         return kitchens;
     }
 
-    public void setKitchens(List<IngredientInKitchen> kitchens) {
+    public void setKitchens(Set<IngredientInKitchen> kitchens) {
         this.kitchens = kitchens;
         }
-    public List<NeededIngredient> getFoods() {
+    
+    public void addKitchen(IngredientInKitchen addkitchen) { 
+    	kitchens.add(addkitchen); 
+		addkitchen.setIngredient(this);
+	}
+	public void removeKitchen(IngredientInKitchen removekitchen) { 
+		kitchens.remove(removekitchen); 
+		removekitchen.setIngredient(null);
+	}
+    
+    public Set<NeededIngredient> getFoods() {
         return foods;
     }
 
-    public void setFoods(List<NeededIngredient> foods) {
+    public void setFoods(Set<NeededIngredient> foods) {
         this.foods = foods;
         }
-    public List<WishedIngredient> getWishList() {
+    
+    public void addFood(NeededIngredient addfood) { 
+    	foods.add(addfood); 
+		addfood.setIngredient(this);
+	}
+	public void removeFood(NeededIngredient removefood) { 
+		foods.remove(removefood); 
+		removefood.setIngredient(null);
+	}
+    
+    public Set<WishedIngredient> getWishList() {
         return wishlists;
     }
 
-    public void setWishLists(List<WishedIngredient> wishlists) {
+    public void setWishLists(Set<WishedIngredient> wishlists) {
         this.wishlists = wishlists;
         }
+    
+    public void addWishList(WishedIngredient addwishlist) { 
+    	wishlists.add(addwishlist); 
+		addwishlist.setIngredient(this);
+	}
+	public void removeWishList(WishedIngredient removewishlist) { 
+		wishlists.remove(removewishlist); 
+		removewishlist.setIngredient(null);
+	}
    
 }

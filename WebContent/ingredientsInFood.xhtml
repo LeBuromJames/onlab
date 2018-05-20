@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+<f:metadata>
+    <f:viewParam name="id" value="#{foodController.food.foodid}" />
+</f:metadata>
+</h:head> 
+<body> 
+<h:panelGrid columns="2">
+        <h:outputLabel value="Requested id: "/>
+        <h:outputText value="#{foodController.food.foodid}"/>
+</h:panelGrid>
+
+<h:form>
+<h:inputText t:placeholder="ingredient name" value="#{ingredientController.ingredient.name}"/>
+<h:inputText value="#{ingredientController.ingredient.calory}"/>
+<h:inputText t:placeholder="ingredient weight/count" value="#{ingredientController.neededIngredient.weightOrCount}"/>
+<h:commandButton value="Add" action="#{ingredientController.createInFood(foodController.getFoodByID(foodController.food.foodid))}"/>
+</h:form>
+<h:form>
+<h:dataTable value="#{foodController.getFoodByID(foodController.food.foodid).ingredients}" var="NeededIngredient" styleClass="table table-bordered" border="2">
+	<h:column>
+		<f:facet name="header">Ingredient Names</f:facet>
+		<h:outputText value="#{NeededIngredient.ingredient.name}"/>
+	</h:column>
+	<h:column>
+		<f:facet name="header">Calory</f:facet>
+		<h:outputText value="#{NeededIngredient.ingredient.calory}"/>
+	</h:column>
+	<h:column>
+		<f:facet name="header">Weight/Count</f:facet>
+		<h:outputText value="#{NeededIngredient.weightOrCount}"/>
+	</h:column>
+</h:dataTable>
+</h:form>
+<h:form>
+   			<h3>BackToMainPage</h3>
+   			<h:commandButton action = "loggedin" value = "Main page" />
+		</h:form>
+</body> 
+</html>

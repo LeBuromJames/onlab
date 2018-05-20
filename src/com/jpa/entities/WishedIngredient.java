@@ -23,7 +23,7 @@ public class WishedIngredient implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="WishedIngredientId")
-	private int id;
+	private Integer id;
 	
 	@Column(name="WeightOrCount")
 	private double weight_or_count;
@@ -32,11 +32,11 @@ public class WishedIngredient implements Serializable {
 	public WishedIngredient() {
 		super();
 	}   
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}   
 	public double getWeight_or_count() {

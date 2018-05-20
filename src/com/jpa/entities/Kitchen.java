@@ -1,10 +1,9 @@
 package com.jpa.entities;
 
-import java.io.Serializable;
+
 import java.lang.String;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Entity implementation class for Entity: kitchen
@@ -12,41 +11,41 @@ import java.util.List;
  */
 @Entity
 @Table(name = "Kitchen")
-public class Kitchen implements Serializable {
- 
-    @JoinTable(name = "users_kitchen",
-            joinColumns = @JoinColumn(name = "kitchenid", referencedColumnName = "kitchenid"),
-            inverseJoinColumns = @JoinColumn(name = "userid", referencedColumnName = "userid"))
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
-    private List<Users> users = new ArrayList<Users>();
+public class Kitchen{
+	
+	
+	@JoinTable(name = "user_kitchen",
+            joinColumns = @JoinColumn(name = "kitchen_id", referencedColumnName = "kitchenid"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "userid"))
+	@ManyToMany(fetch = FetchType.EAGER)
+    private Set<User> users;
     
-    @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "ingredient", fetch = FetchType.LAZY)
-    private List<IngredientInKitchen> ingredients = new ArrayList<IngredientInKitchen>();
+    @OneToMany(mappedBy = "kitchen", fetch = FetchType.EAGER)
+    private Set<IngredientInKitchen> ingredients;
     
-    @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "kitchen", fetch = FetchType.LAZY)
-    private List<WishList> wishlists = new ArrayList<WishList>();
+    @OneToMany(mappedBy = "kitchen", fetch = FetchType.EAGER)
+    private Set<WishList> wishlists;
     
-    @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "kitchen", fetch = FetchType.LAZY)
-    private List<Food> foods = new ArrayList<Food>();
+    @OneToMany(mappedBy = "kitchen", fetch = FetchType.EAGER)
+    private Set<Food> foods;
     
 	   
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="KitchenId")
-	private int kitchenid;
+	private Integer kitchenid;
 	
 	@Column(name="Name")
-	private String name;
-	private static final long serialVersionUID = 1L;
+	private String name;	
 
 	public Kitchen() {
 		super();
 	}   
-	public int getKitchenid() {
+	public Integer getKitchenid() {
 		return this.kitchenid;
 	}
 
-	public void setKitchenid(int kitchenid) {
+	public void setKitchenid(Integer kitchenid) {
 		this.kitchenid = kitchenid;
 	}   
 	public String getName() {
@@ -57,34 +56,57 @@ public class Kitchen implements Serializable {
 		this.name = name;
 	}
 	
-	public List<Food> getFoods() {
+	public void addUser(User user) { 
+		users.add(user); 
+	}
+	public void removeUser(User user) { 
+		users.remove(user); 
+	}
+	
+	
+	public Set<Food> getFoods() {
         return foods;
     }
 
-    public void setFoods(List<Food> foods) {
+    public void setFoods(Set<Food> foods) {
         this.foods = foods;
         }
-    public List<IngredientInKitchen> getIngredients() {
+    
+    public void addFood(Food addfood) { 
+    	foods.add(addfood); 
+		addfood.setKitchen(this);
+	}
+	public void removeFood(Food removefood) { 
+		foods.remove(removefood); 
+		removefood.setKitchen(null);
+	}
+    public Set<IngredientInKitchen> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<IngredientInKitchen> ingredients) {
+    public void setIngredients(Set<IngredientInKitchen> ingredients) {
         this.ingredients = ingredients;
         }
-    public List<Users> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<Users> users) {
-        this.users = users;
-        }
-    public List<WishList> getWishList() {
-        return wishlists;
-    }
-
-    public void setWishLists(List<WishList> wishlists) {
-        this.wishlists = wishlists;
-        }
+    
+    public void addIngredient(IngredientInKitchen ingredient) { 
+    	ingredients.add(ingredient); 
+		ingredient.setKitchen(this);
+	}
+	public void removeIngredient(IngredientInKitchen ingredient) { 
+		ingredients.remove(ingredient); 
+		ingredient.setKitchen(null);
+	}
+    
+		
+    
+    public void addWishList(WishList wishlist) { 
+    	wishlists.add(wishlist); 
+		wishlist.setKitchen(this);
+	}
+	public void removeWishList(WishList wishlist) { 
+		wishlists.remove(wishlist); 
+		wishlist.setKitchen(null);
+	}
     }
 
    

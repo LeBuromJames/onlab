@@ -5,6 +5,7 @@ import java.lang.String;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Entity implementation class for Entity: food
@@ -13,17 +14,11 @@ import java.util.List;
 @Entity
 @Table(name = "Food")
 public class Food implements Serializable {
-	@JoinTable(name = "food_kitchen",
-            joinColumns = @JoinColumn(name = "foodid", referencedColumnName = "foodid"),
-            inverseJoinColumns = @JoinColumn(name = "kitchenid", referencedColumnName = "kitchenid"))
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
-    private List<Kitchen> kitchens = new ArrayList<Kitchen>();
-    
-    
-    @OneToMany(mappedBy = "ingredient")
-    private List<NeededIngredient> ingredients = new ArrayList<NeededIngredient>();
+     
+    @OneToMany(mappedBy = "ingredient", fetch = FetchType.EAGER)
+    private Set<NeededIngredient> ingredients;
 
-    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "kitchen")
     private Kitchen kitchen;
 	   
@@ -43,7 +38,7 @@ public class Food implements Serializable {
 		return this.foodid;
 	}
 
-	public void setFoodid(int foodid) {
+	public void setFoodid(Integer foodid) {
 		this.foodid = foodid;
 	}   
 	public String getName() {
@@ -54,20 +49,22 @@ public class Food implements Serializable {
 		this.name = name;
 	}
 	
-	public List<Kitchen> getKitchens() {
-        return kitchens;
-    }
-
-    public void setKitchens(List<Kitchen> kitchens) {
-        this.kitchens = kitchens;
-        }
-    public List<NeededIngredient> getIngredients() {
+    public Set<NeededIngredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<NeededIngredient> ingredients) {
+    public void setIngredients(Set<NeededIngredient> ingredients) {
         this.ingredients = ingredients;
         }
+    
+    public void addIngredient(NeededIngredient addingredient) { 
+    	ingredients.add(addingredient); 
+		addingredient.setFood(this);
+	}
+	public void removeIngredient(NeededIngredient removeingredient) { 
+		ingredients.remove(removeingredient); 
+		removeingredient.setFood(null);
+	}
     
     public Kitchen getKitchen() {
         return kitchen;
@@ -76,5 +73,5 @@ public class Food implements Serializable {
     public void setKitchen(Kitchen kitchen) {
         this.kitchen = kitchen;
     }
-   
+    
 }

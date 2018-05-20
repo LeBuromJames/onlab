@@ -25,17 +25,17 @@ public class WishList implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="WishListId")
-	private int wishlistid;
+	private Integer wishlistid;
 	private static final long serialVersionUID = 1L;
 
 	public WishList() {
 		super();
 	}   
-	public int getWishlistid() {
+	public Integer getWishlistid() {
 		return this.wishlistid;
 	}
 	
-	public void setWishListid(int wishlistid) {
+	public void setWishListid(Integer wishlistid) {
 		this.wishlistid = wishlistid;
 	}   
 	
@@ -46,6 +46,15 @@ public class WishList implements Serializable {
     public void setIngredients(List<WishedIngredient> ingredients) {
         this.ingredients = ingredients;
         }
+    
+    public void addIngredient(WishedIngredient addingredient) { 
+    	ingredients.add(addingredient); 
+		addingredient.setWishList(this);
+	}
+	public void removeIngredient(WishedIngredient removeingredient) { 
+		ingredients.remove(removeingredient); 
+		removeingredient.setWishList(null);
+	}
     
     public Kitchen getKitchen() {
         return kitchen;

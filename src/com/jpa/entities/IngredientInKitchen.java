@@ -10,12 +10,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "IngredientInKitchen")
 public class IngredientInKitchen implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "ingredient")
     private Ingredient ingredient;
 	
-	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "kitchen")
     private Kitchen kitchen;
 
@@ -23,28 +24,28 @@ public class IngredientInKitchen implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="IngredientInKitchenId")
-	private int id;
+	private Integer id;
 	
 	@Column(name="WeightOrCount")
-	private double weight_or_count;
-	private static final long serialVersionUID = 1L;
+	private double weightOrCount;
+	
 
 	public IngredientInKitchen() {
 		super();
 	}   
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}   
-	public double getWeight_or_count() {
-		return this.weight_or_count;
+	public double getWeightOrCount() {
+		return this.weightOrCount;
 	}
 
-	public void setWeight_or_count(double weight_or_count) {
-		this.weight_or_count = weight_or_count;
+	public void setWeightOrCount(double weight_or_count) {
+		this.weightOrCount = weight_or_count;
 	}
 	public Ingredient getIngredient() {
         return ingredient;

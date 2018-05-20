@@ -4,17 +4,17 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.jpa.entities.Users;
+import com.jpa.entities.User;
 
 
 @Stateless
-public class UsersDao extends AbstractDao<Users, Integer> {
+public class UserDao extends AbstractDao<User, Integer> {
 
     @PersistenceContext
     EntityManager em;
 
-    public UsersDao() {
-        super(Users.class);
+    public UserDao() {
+        super(User.class);
     }
 
     @Override

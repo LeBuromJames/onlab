@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"> 
+
+<h:head>
+<h:form>
+   <h:commandButton action = "login.xhtml" value = "LOG OUT" />
+</h:form>
+<hr />
+<f:metadata>
+        <f:viewParam name="id" value="#{userController.id}" />
+    </f:metadata>
+</h:head> 
+
+<body>
+<h:form>
+<h:inputText t:placeholder="kitchen name" value="#{kitchenController.kitchen.name}"/>
+<h:commandButton value="Add" action="#{kitchenController.create(userController.getUserByID(userController.id))}">
+</h:commandButton>
+</h:form>
+
+
+<h:form>
+<h:outputText value="#{userController.getUserByID(userController.id).userid}"/>
+<h:outputText value="#{userController.getUserByID(userController.id).name}"/> 
+</h:form>
+
+<h:form>
+<h:dataTable value="#{userController.getUserByID(userController.id).kitchens}" var="kitchen" styleClass="table table-bordered" border="2">
+	<h:column>
+		<f:facet name="header">Kitchen IDs</f:facet>
+		<h:outputText value="#{kitchen.kitchenid}"/>
+	</h:column>
+	<h:column>
+		<f:facet name="header">Kitchen Names</f:facet>
+		<h:outputText value="#{kitchen.name}"/>
+	</h:column>
+	<h:column>
+		<h:link value="Enter Kitchen" outcome="Kitchen" includeViewParams="true">
+        <f:param name="id" value="#{kitchen.kitchenid}"/>
+        </h:link>
+	</h:column>
+	</h:dataTable>
+</h:form>
+<h:form>
+<h:dataTable value="#{kitchenController.kitchens}" var="kitchen">
+	<h:column>
+		<f:facet name="header">TargyID</f:facet>
+		<h:outputText value="#{kitchen.kitchenid}"/>
+	</h:column>
+	<h:column>
+		<f:facet name="header">Targykod</f:facet>
+		<h:outputText value="#{kitchen.name}"/>
+	</h:column>
+	
+	<h:column>
+               <f:facet name = "header">Add</f:facet>
+               <h:commandButton value = "Add" 
+                  action = "#{userController.addKitchenToUser(kitchen,userController.id)}"  />                        
+    </h:column>
+     
+</h:dataTable>
+
+
+</h:form>
+
+</body> 
+</html>

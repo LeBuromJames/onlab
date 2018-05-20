@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"> 
+
+<h:head>
+<f:metadata>
+    <f:viewParam name="id" value="#{kitchenController.kitchen.kitchenid}" />
+</f:metadata></h:head> 
+<body>
+<h:panelGrid columns="2">
+        <h:outputLabel value="Requested id: "/>
+        <h:outputText value="#{kitchenController.kitchen.kitchenid}"/>
+</h:panelGrid>
+
+<h:form>
+<h:inputText t:placeholder='food name' value="#{foodController.food.name}"/>
+<h:commandButton value="OK" action="#{foodController.create(kitchenController.getKitchenByID(kitchenController.kitchen.kitchenid))}"/>
+</h:form>
+<h:form>
+<h:inputText t:placeholder="ingredient name" value="#{ingredientController.ingredient.name}"/>
+<h:inputText value="#{ingredientController.ingredient.calory}"/>
+<h:inputText t:placeholder="ingredient weight/count" value="#{ingredientController.ingredientInKitchen.weightOrCount}"/>
+<h:commandButton value="Add" action="#{ingredientController.createInKitchen(kitchenController.getKitchenByID(kitchenController.kitchen.kitchenid))}"/>
+</h:form>
+<h:form>
+<h:dataTable value="#{kitchenController.getKitchenByID(kitchenController.kitchen.kitchenid).foods}" var="food" styleClass="table table-bordered" border="2">
+	<h:column>
+		<f:facet name="header">Food IDs</f:facet>		
+		<h:outputText value="#{food.foodid}  "/>
+	</h:column>
+	<h:column>
+		<f:facet name="header">Food Names</f:facet>
+        <h:outputText value="#{food.name} "/>
+    </h:column>
+    <h:column>
+		<h:link value="Ingredients" outcome="ingredientsInFood" includeViewParams="true">
+        <f:param name="id" value="#{food.foodid}"/>
+        </h:link>
+	</h:column>
+	<h:column>
+         <h:commandButton type="submit" value="Delete food!" action="#{foodController.delete(food.foodid,kitchenController.getKitchenByID(kitchenController.kitchen.kitchenid))}"/>
+    </h:column>
+</h:dataTable>
+</h:form>
+
+<h:form>
+<h:dataTable value="#{kitchenController.getKitchenByID(kitchenController.kitchen.kitchenid).ingredients}" var="ingredientInKitchen" styleClass="table table-bordered" border="2">
+	<h:column>
+		<f:facet name="header">Ingredient names</f:facet>		
+		<h:outputText value="#{ingredientInKitchen.ingredient.name}  "/>
+	</h:column>
+	<h:column>
+		<f:facet name="header">Calory</f:facet>
+        <h:outputText value="#{ingredientInKitchen.ingredient.calory} "/>
+    </h:column>
+    <h:column>
+		<f:facet name="header">WeightOrCount</f:facet>
+        <h:outputText value="#{ingredientInKitchen.weightOrCount} "/>
+    </h:column>
+    
+	<h:column>
+         <h:commandButton type="submit" value="Delete Ingredient!" action="#{foodController.delete(food.foodid,kitchenController.getKitchenByID(kitchenController.kitchen.kitchenid))}"/>
+    </h:column>
+</h:dataTable>
+</h:form>
+
+<h:form>
+   			<h3>BackToMainPage</h3>
+   			<h:commandButton action = "loggedin" value = "Main page" />
+		</h:form>
+</body> 
+</html>

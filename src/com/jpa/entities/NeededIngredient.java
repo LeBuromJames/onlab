@@ -1,6 +1,7 @@
 package com.jpa.entities;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 /**
@@ -9,41 +10,41 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "NeededIngredient")
-public class NeededIngredient implements Serializable {
+public class NeededIngredient implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ingredient")
     private Ingredient ingredient;
 	
-	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "food")
     private Food food;
 	   
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="NeededIngredientId")
-	private int id;
+	private Integer id;
 	
 	@Column(name="WeightOrCount")
-	private double weight_or_count;
-	private static final long serialVersionUID = 1L;
+	private double weightOrCount;
 
 	public NeededIngredient() {
 		super();
 	}   
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}   
-	public double getWeight_or_count() {
-		return this.weight_or_count;
+	public double getWeightOrCount() {
+		return this.weightOrCount;
 	}
 
-	public void setWeight_or_count(double weight_or_count) {
-		this.weight_or_count = weight_or_count;
+	public void setWeightOrCount(double weightOrCount) {
+		this.weightOrCount = weightOrCount;
 	}
 	public Ingredient getIngredient() {
         return ingredient;
