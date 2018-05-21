@@ -12,10 +12,13 @@ import com.jpa.entities.Ingredient;
 import com.jpa.entities.IngredientInKitchen;
 import com.jpa.entities.Kitchen;
 import com.jpa.entities.NeededIngredient;
+import com.jpa.entities.WishList;
+import com.jpa.entities.WishedIngredient;
 
 import DAO.IngredientDao;
 import DAO.IngredientInKitchenDao;
 import DAO.NeededIngredientDao;
+import DAO.WishedIngredientDao;
 
 
 @Named
@@ -28,10 +31,13 @@ public class IngredientController {
 	NeededIngredientDao neededIngredientDao;
 	@EJB
 	IngredientInKitchenDao ingredientInKitchenDao;
+	@EJB
+	WishedIngredientDao wishedIngredientDao;
 	
 	private Ingredient ingredient;
 	private NeededIngredient neededIngredient;
 	private IngredientInKitchen ingredientInKitchen;
+	private WishedIngredient wishedIngredient;
 	
 	private List<Ingredient> ingredients;
 
@@ -40,14 +46,11 @@ public class IngredientController {
 		ingredient = new Ingredient();
 		neededIngredient = new NeededIngredient();
 		ingredientInKitchen= new IngredientInKitchen();
+		wishedIngredient = new WishedIngredient();
 		ingredients = ingredientDao.findAll();
 	}
 	
-	public String create() {
-		ingredientDao.create(ingredient);
-		init();
-		return null;
-	}
+	
 	public String createInFood(Food food) {
 		neededIngredientDao.create(neededIngredient);
 		NeededIngredient newNeededIngredient=neededIngredientDao.findById(neededIngredient.getId());
@@ -73,13 +76,19 @@ public class IngredientController {
 		return null;
 	}
 	
+	public String createInWishList(WishList wishList) {
+		wishedIngredientDao.create(wishedIngredient);
+		WishedIngredient newWishedIngredient=wishedIngredientDao.findById(wishedIngredient.getId());
+		wishList.addIngredient(newWishedIngredient);
+		ingredientDao.create(ingredient);
+		Ingredient newIngredient =ingredientDao.findById(ingredient.getIngredientid());
+		newIngredient.addWishList(newWishedIngredient);
+		wishedIngredientDao.update(newWishedIngredient);
+		ingredientDao.update(newIngredient);
+		init();
+		return null;
+	}
 	
-	/*neededIngredientDao.create(neededIngredient);
-	Kitchen newkitchen = kitchenDao.findById(kitchen.getKitchenid());
-	user.addKitchen(newkitchen);
-	kitchenDao.update(newkitchen);
-	init();
-	return null;*/
 	
 	public String delete(Integer id) {
 		ingredientDao.deleteById(id);
@@ -108,6 +117,14 @@ public class IngredientController {
 
 	public void setNeededIngredient(NeededIngredient neededingredient) {
 		this.neededIngredient = neededingredient;
+	}
+	
+	public WishedIngredient getWishedIngredient() {
+		return wishedIngredient;
+	}
+
+	public void setWishedIngredient(WishedIngredient wishedIngredient) {
+		this.wishedIngredient = wishedIngredient;
 	}
 
 	public List<Ingredient> getIngredients() {

@@ -39,6 +39,10 @@
 		<h:outputText value="#{kitchen.name}"/>
 	</h:column>
 	<h:column>
+               <h:commandButton value = "RemoveKitchen" 
+                  action = "#{userController.removeKitchenFromUser(kitchen.kitchenid,userController.id)}"  />                        
+    </h:column>
+	<h:column>
 		<h:link value="Enter Kitchen" outcome="Kitchen" includeViewParams="true">
         <f:param name="kid" value="#{kitchen.kitchenid}"/>
         <f:param name="uid" value="#{userController.id}"/>
@@ -46,6 +50,7 @@
 	</h:column>
 	</h:dataTable>
 </h:form>
+
 <h:form>
 <h:dataTable value="#{kitchenController.kitchens}" var="kitchen">
 	<h:column>
@@ -62,10 +67,12 @@
                <h:commandButton value = "Add" 
                   action = "#{userController.addKitchenToUser(kitchen,userController.id)}"  />                        
     </h:column>
+    <h:column>
+               <h:commandButton value = "RemoveKitchen" 
+                  action = "#{userController.removeKitchenFromUser(kitchen.kitchenid,userController.id)}"  />                        
+    </h:column>
      
 </h:dataTable>
-
-
 </h:form>
 
 </body> 

@@ -69,6 +69,21 @@ public class UserController {
 		init();
 	}
 	
+	public void removeKitchenFromUser(Integer kitchenid,Integer userid)
+	{
+		User loggedUser = getUserByID(userid);
+		loggedUser.removeKitchenById(kitchenid);
+		userDao.update(loggedUser);
+		init();
+	}
+	
+	public void removeAllKitchen(Integer userid)
+	{
+		User loggedUser = getUserByID(userid);
+		loggedUser.removeAllKitchen();
+		init();
+	}
+	
 	public Integer getId() {
 		return id;
 	}

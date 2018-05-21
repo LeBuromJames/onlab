@@ -26,7 +26,7 @@ public class WishedIngredient implements Serializable {
 	private Integer id;
 	
 	@Column(name="WeightOrCount")
-	private double weight_or_count;
+	private double weightOrCount;
 	private static final long serialVersionUID = 1L;
 
 	public WishedIngredient() {
@@ -39,12 +39,12 @@ public class WishedIngredient implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}   
-	public double getWeight_or_count() {
-		return this.weight_or_count;
+	public double getWeightOrCount() {
+		return this.weightOrCount;
 	}
 
-	public void setWeight_or_count(double weight_or_count) {
-		this.weight_or_count = weight_or_count;
+	public void setWeightOrCount(double weightOrCount) {
+		this.weightOrCount = weightOrCount;
 	}
 	
 	public Ingredient getIngredient() {

@@ -42,6 +42,11 @@ public class WishListController {
 		return null;
 	}
 	
+	public WishList getWishListByID(Integer id) {
+		wishList=wishListDao.findById(id);
+		return wishList;
+	}
+	
 	
 	public WishList getWishList() {
 		return wishList;

@@ -86,6 +86,13 @@
 	<h:column>
          <h:commandButton type="submit" value="Delete WishList!" action="#{foodController.delete(food.foodid,kitchenController.getKitchenByID(kitchenController.kitchen.kitchenid))}"/>
     </h:column>
+    <h:column>
+		<h:link value="EnterWishlist" outcome="wishList" includeViewParams="true">
+        <f:param name="wid" value="#{wishList.wishlistid}"/>
+        <f:param name="kid" value="#{kitchenController.kitchen.kitchenid}"/>
+        <f:param name="uid" value="#{userController.id}"/>
+        </h:link>
+	</h:column>
 </h:dataTable>
 </h:form>
 

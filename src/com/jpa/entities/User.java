@@ -1,5 +1,6 @@
 package com.jpa.entities;
 
+import java.util.Iterator;
 import java.util.Set;
 import java.lang.String;
 import javax.persistence.*;
@@ -81,6 +82,22 @@ public class User{
 		kitchens.remove(kitchen);
 		kitchen.removeUser(this);
 	}
+    
+    public void removeKitchenById(Integer id)
+    {
+    	for (Iterator<Kitchen> i = kitchens.iterator(); i.hasNext();) {
+    	    Kitchen kitchen = i.next();
+    	    if (kitchen.getKitchenid() == id) {
+    	        i.remove();
+    	    }
+    	}
+    }
+    
+    public void removeAllKitchen()
+	{
+		kitchens.clear();
+	}
+    
         
    
 }
