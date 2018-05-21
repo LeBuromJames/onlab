@@ -50,7 +50,7 @@ public class UserController {
 			if(usertemp.getEmail().equals(user.getEmail())  &&  usertemp.getJelszo().equals((String)user.getJelszo()))
 				{ 
 				id=usertemp.getUserid();
-				return "loggedin.xhtml?faces-redirect=true&includeViewParams=true"; }
+				return "user.xhtml?faces-redirect=true&includeViewParams=true"; }
 		}
 		return "login.xhtml";
 	}
