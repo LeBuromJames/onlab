@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "Food")
 public class Food{
      
-    @OneToMany(mappedBy = "ingredient", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "food", fetch = FetchType.EAGER)
     private Set<NeededIngredient> ingredients;
 
     @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)

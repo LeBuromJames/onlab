@@ -50,9 +50,6 @@
         <f:param name="uid" value="#{userController.id}"/>
         </h:link>
 	</h:column>
-	<h:column>
-         <h:commandButton type="submit" value="Delete food!" action="#{foodController.delete(food.foodid,kitchenController.getKitchenByID(kitchenController.kitchen.kitchenid))}"/>
-    </h:column>
 </h:dataTable>
 </h:form>
 
@@ -72,7 +69,7 @@
     </h:column>
     
 	<h:column>
-         <h:commandButton type="submit" value="Delete Ingredient!" action="#{foodController.delete(food.foodid,kitchenController.getKitchenByID(kitchenController.kitchen.kitchenid))}"/>
+         <h:commandButton type="submit" value="Delete Ingredient!" action="#{ingredientController.deleteFromKitchen(ingredientInKitchen.ingredient.ingredientid,kitchenController.kitchen.kitchenid)}"/>
     </h:column>
 </h:dataTable>
 </h:form>
@@ -83,9 +80,6 @@
 		<f:facet name="header">WishList id</f:facet>		
 		<h:outputText value="#{wishList.wishlistid}  "/>
 	</h:column>
-	<h:column>
-         <h:commandButton type="submit" value="Delete WishList!" action="#{foodController.delete(food.foodid,kitchenController.getKitchenByID(kitchenController.kitchen.kitchenid))}"/>
-    </h:column>
     <h:column>
 		<h:link value="EnterWishlist" outcome="wishList" includeViewParams="true">
         <f:param name="wid" value="#{wishList.wishlistid}"/>

@@ -89,6 +89,7 @@ public class User{
     	    Kitchen kitchen = i.next();
     	    if (kitchen.getKitchenid() == id) {
     	        i.remove();
+    	        kitchen.removeUserById(this.userid);
     	    }
     	}
     }

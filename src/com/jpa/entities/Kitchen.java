@@ -3,6 +3,8 @@ package com.jpa.entities;
 
 import java.lang.String;
 import javax.persistence.*;
+
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -62,6 +64,15 @@ public class Kitchen{
 	public void removeUser(User user) { 
 		users.remove(user); 
 	}
+	public void removeUserById(Integer id)
+    {
+    	for (Iterator<User> i = users.iterator(); i.hasNext();) {
+    	    User user = i.next();
+    	    if (user.getUserid() == id) {
+    	        i.remove();
+    	    }
+    	}
+    }
 	
 	
 	public Set<Food> getFoods() {
@@ -80,6 +91,22 @@ public class Kitchen{
 		foods.remove(removefood); 
 		removefood.setKitchen(null);
 	}
+	
+	public void removeFoodById(Integer id)
+    {
+    	for (Iterator<Food> i = foods.iterator(); i.hasNext();) {
+    	    Food food = i.next();
+    	    if (food.getFoodid() == id) {
+    	        i.remove();
+    	        food.setKitchen(null);
+    	    }
+    	}
+    }
+    
+    public void removeAllFood()
+	{
+		foods.clear();
+	}
     public Set<IngredientInKitchen> getIngredients() {
         return ingredients;
     }
@@ -95,6 +122,22 @@ public class Kitchen{
 	public void removeIngredient(IngredientInKitchen ingredient) { 
 		ingredients.remove(ingredient); 
 		ingredient.setKitchen(null);
+	}
+	
+	public void removeIngredientById(Integer id)
+    {
+    	for (Iterator<IngredientInKitchen> i = ingredients.iterator(); i.hasNext();) {
+    		IngredientInKitchen ingredient = i.next();
+    	    if (ingredient.getIngredient().getIngredientid() == id) {
+    	        i.remove();
+    	        ingredient.setKitchen(null);
+    	    }
+    	}
+    }
+    
+    public void removeAllIngredients()
+	{
+		ingredients.clear();
 	}
     
 	public Set<WishList> getWishlists() {

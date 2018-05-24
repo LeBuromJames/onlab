@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class WishList implements Serializable {
 	
 	
-	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "ingredient", fetch = FetchType.EAGER)
+	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "wishlist", fetch = FetchType.EAGER)
 	private Set<WishedIngredient> ingredients;
 	
 	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)

@@ -19,10 +19,10 @@ public class Ingredient implements Serializable {
 	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "wishlist", fetch = FetchType.EAGER)
     private Set<WishedIngredient> wishlists;
     
-    @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "kitchen", fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "ingredient", fetch = FetchType.EAGER)
     private Set<IngredientInKitchen> kitchens;
     
-    @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "food", fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "ingredient", fetch = FetchType.EAGER)
     private Set<NeededIngredient> foods;
     
 	   

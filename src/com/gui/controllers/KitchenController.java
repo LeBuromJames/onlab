@@ -26,8 +26,8 @@ public class KitchenController {
 	
 	private Kitchen kitchen;
 	
-	private List<Kitchen> kitchens;
 	//private List<User> users;
+	private List<Kitchen> kitchens;
 
 	@PostConstruct
 	public void init() {
@@ -50,6 +50,13 @@ public class KitchenController {
 		init();
 		return null;
 	}*/
+	public void removeAllIngredient(Integer kid)
+	{
+		Kitchen kitchen = getKitchenByID(kid);
+		kitchen.removeAllIngredients();
+		kitchenDao.update(kitchen);
+		init();
+	}
 	
 	public Kitchen getKitchenByID(Integer id) {
 		kitchen=kitchenDao.findById(id);

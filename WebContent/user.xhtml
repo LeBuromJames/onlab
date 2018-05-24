@@ -3,19 +3,27 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"> 
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:o="http://omnifaces.org/ui">
+
+<f:view>
+<f:metadata>
+        <f:viewParam name="uid" value="#{userController.id}" />
+    </f:metadata>
 
 <h:head>
+</h:head> 
+
+
+
+<body>
+
 <h:form>
    <h:commandButton action = "login.xhtml" value = "LOG OUT" />
 </h:form>
 <hr />
-<f:metadata>
-        <f:viewParam name="uid" value="#{userController.id}" />
-    </f:metadata>
-</h:head> 
 
-<body>
+
 <h:form>
 <h:inputText t:placeholder="kitchen name" value="#{kitchenController.kitchen.name}"/>
 <h:commandButton value="Add" action="#{kitchenController.create(userController.getUserByID(userController.id))}">
@@ -28,7 +36,7 @@
 <h:outputText value="#{userController.getUserByID(userController.id).name}"/> 
 </h:form>
 
-<h:form>
+<o:form includeViewParams="true">
 <h:dataTable value="#{userController.getUserByID(userController.id).kitchens}" var="kitchen" styleClass="table table-bordered" border="2">
 	<h:column>
 		<f:facet name="header">Kitchen IDs</f:facet>
@@ -39,17 +47,13 @@
 		<h:outputText value="#{kitchen.name}"/>
 	</h:column>
 	<h:column>
-               <h:commandButton value = "RemoveKitchen" 
-                  action = "#{userController.removeKitchenFromUser(kitchen.kitchenid,userController.id)}"  />                        
-    </h:column>
-	<h:column>
 		<h:link value="Enter Kitchen" outcome="Kitchen" includeViewParams="true">
         <f:param name="kid" value="#{kitchen.kitchenid}"/>
         <f:param name="uid" value="#{userController.id}"/>
         </h:link>
 	</h:column>
 	</h:dataTable>
-</h:form>
+</o:form>
 
 <h:form>
 <h:dataTable value="#{kitchenController.kitchens}" var="kitchen">
@@ -75,5 +79,13 @@
 </h:dataTable>
 </h:form>
 
-</body> 
+<h:form>
+<h:column>
+             <h:commandButton value = "RemoveAllKitchen" 
+             action = "#{userController.removeAllKitchen(userController.id)}"  />                        
+    </h:column>
+    </h:form>
+
+</body>
+</f:view> 
 </html>

@@ -1,5 +1,6 @@
 package com.gui.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -23,6 +24,7 @@ public class UserController {
 	private User user;
 	private Integer id=0;
 	private List<User> userList;
+	//private List<Kitchen> kitchens;
 	
 	@PostConstruct
 	public void init() {
@@ -61,26 +63,29 @@ public class UserController {
 		return user;
 	}
 		
-	public void addKitchenToUser(Kitchen kitchen,Integer id)
+	public String addKitchenToUser(Kitchen kitchen,Integer id)
 	{
 		User loggedUser = getUserByID(id);
 		loggedUser.addKitchen(kitchen);
 		userDao.update(loggedUser);
 		init();
+		return null;
 	}
 	
-	public void removeKitchenFromUser(Integer kitchenid,Integer userid)
+	public String removeKitchenFromUser(Integer kitchenid,Integer userid)
 	{
 		User loggedUser = getUserByID(userid);
 		loggedUser.removeKitchenById(kitchenid);
 		userDao.update(loggedUser);
 		init();
+		return null;
 	}
 	
 	public void removeAllKitchen(Integer userid)
 	{
 		User loggedUser = getUserByID(userid);
 		loggedUser.removeAllKitchen();
+		userDao.update(loggedUser);
 		init();
 	}
 	
@@ -107,4 +112,14 @@ public class UserController {
 	public void setUserList(List<User> userList) {
 		this.userList = userList;
 	}
+
+	/*public List<Kitchen> getKitchens() {
+		if(kitchens == null)
+			kitchens=new ArrayList<>(userDao.findById(id).getKitchens());
+		return kitchens;
+	}
+
+	public void setKitchens(List<Kitchen> kitchens) {
+		this.kitchens = kitchens;
+	}*/
 	}

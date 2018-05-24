@@ -38,6 +38,7 @@ public class IngredientController {
 	private NeededIngredient neededIngredient;
 	private IngredientInKitchen ingredientInKitchen;
 	private WishedIngredient wishedIngredient;
+	private KitchenController kc;
 	
 	private List<Ingredient> ingredients;
 
@@ -90,8 +91,9 @@ public class IngredientController {
 	}
 	
 	
-	public String delete(Integer id) {
-		ingredientDao.deleteById(id);
+	public String deleteFromKitchen(Integer ingredientid,Integer kid) {
+		kc.removeAllIngredient(kid);
+		ingredientDao.deleteById(ingredientid);
 		init();
 		return null;
 	}
